@@ -22,12 +22,11 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'Dakuk Master',
             'email' => 'dakuk@admin.com',
+            'phone' => fake()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'phone' => fake()->phoneNumber(),
-            'remember_token' => Str::random(10),
         ]);
-        
+
         $user->assignRole('admin');
 
         User::factory(20)->create()->each(function ($user) {
