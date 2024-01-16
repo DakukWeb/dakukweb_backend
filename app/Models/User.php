@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     /**
      * Get the specified resource based on the selected status & search params
-     * 
+     *
      * @param string $search
      * @param string $status
      */

@@ -11,6 +11,26 @@ class UserController extends Controller
     //
     function listData()
     {
-        return User::all();
+        return User::withoutGlobalScopes()->get();
+    }
+
+    /*
+        Store
+    */
+    function store(Request $req)
+    {
+        $user = new User;
+
+        $user->name=$req->name;
+        $user->email=$req->email;
+        $user->password=$req->password;
+        $user->phone=$req->phone;
+        $result =  $user->save();
+        if($result)
+        {
+            return ["Result" => "Data has been stored"];
+        }else{
+            return["Result"=> "Problem with the data"];
+        }
     }
 }
