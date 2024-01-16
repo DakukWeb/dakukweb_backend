@@ -13,15 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table(
-            'users',
-            function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
+            if (!Schema::hasColumn('users', 'old_id')) {
                 $table->unsignedInteger('old_id')->after('id')->nullable();
-                $table->string('phone', 50)->after('password')->nullable();
-                $table->softDeletes();
             }
-        );
+
+            if (!Schema::hasColumn('users', 'phone')) {
+                $table->string('phone', 50)->after('password')->nullable();
+            }
+
+            $table->softDeletes();
+        });
     }
+
 
     /**
      * Reverse the migrations.

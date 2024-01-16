@@ -19,6 +19,21 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+
+        $product_index = Permission::create(['name' => 'products.index']);
+        $product_store = Permission::create(['name' => 'products.store']);
+        $product_show = Permission::create(['name' => 'products.show']);
+        $product_update = Permission::create(['name' => 'products.update']);
+        $product_destroy = Permission::create(['name' => 'products.destroy']);
+
+        $admin_role = Role::create(['name'=>'admin']);
+        $admin_role->givePermissionTo([
+            $product_index,
+            $product_store,
+            $product_show,
+            $product_update,
+            $product_destroy
+        ]);
         $user = User::create([
             'name' => 'Dakuk Master',
             'email' => 'dakuk@admin.com',
@@ -27,14 +42,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        $user->assignRole('admin');
+        $user->assignRole($admin_role); 
 
-        User::factory(20)->create()->each(function ($user) {
-            $user->assignRole('customer');
-        });
-
-        User::factory(20)->trashed()->create()->each(function ($user) {
-            $user->assignRole('customer');
-        });
     }
 }

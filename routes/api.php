@@ -22,12 +22,8 @@ use App\Http\Controllers\CategoryController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-/*
-Route::get('data', [ecommerceAPI::class, 'getData']);
-Route::get('list', [UserController::class, 'listData']);
-Route::post('storeUser', [UserController::class, 'store']);
-Route::post('storeProduct', [ProductController::class, 'store']);
-*/
+
+Route::apiResource('products', ProductController::class);
 
 Route::group(['middleware' => 'role:customer', 'prefix' => 'customer', 'as' => 'customer.'], function() {
 

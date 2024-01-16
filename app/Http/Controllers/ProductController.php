@@ -24,23 +24,14 @@ class ProductController extends Controller
         return view('customer.products.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $products = Product::all();
         return view('admin.products.create', ['products' => $products]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Product $product)
     {
         if ($product) {
@@ -56,12 +47,7 @@ class ProductController extends Controller
         }
         return view('customer.products.show', ['product' => $product]);*/
     }
-    /**
-     * Search an specific register.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -70,14 +56,6 @@ class ProductController extends Controller
         return view('admin.products.index', ['products' => $products]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -85,12 +63,7 @@ class ProductController extends Controller
         return to_route('products.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $product = Product::find($id);
@@ -115,11 +88,7 @@ class ProductController extends Controller
 
         return to_route('products.index')->with('status', $status);
     }
-}
 
-    /*
-        store
-    */
     function store(Request $req)
     {
         $request->validate(ValidationRules::productRules());
@@ -140,3 +109,4 @@ class ProductController extends Controller
             return["Result"=> "Problem with the data"];
         }
     }
+}
