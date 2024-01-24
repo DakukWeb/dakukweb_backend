@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
 {
     //
-    function listData()
+    function index()
     {
         return User::withoutGlobalScopes()->get();
     }
