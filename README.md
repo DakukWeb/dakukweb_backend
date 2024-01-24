@@ -79,9 +79,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-En este proyecto vas a poder encontrar rutas URL que serviran para que tu E-commerce pueda hacer las funciones basicas utilizando permisos y mas.
+Este proyecto consiste en una API desarrollada en Laravel, que tiene como objetivo principal proporcionar funcionalidades específicas y permitir la gestión y almacenamiento de datos. La API se diseño para  <a href="https://github.com/EitanMohorade/DakukWeb">Dakuk Web</a> pero sirve para cualquier E-commerce.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -105,40 +103,164 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Antes de utilizar esta API, hay que cumplir con los siguientes pre requisitos y realiza la configuración necesaria:
+
+* PHP >8.2.12
+* MySql
+* configura las credenciales en el archivo `.env.`
+
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/EitanMohorade/DakukWeb_back-end.git
    ```
-3. Install NPM packages
+3. Instalar dependencias del proyecto
    ```sh
-   npm install
+   composer install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+4. Aplicar migraciones y seeders
+   ```sh
+   php artisan migrate --seed
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+<!-- resumen -->
+## Resumen
 
-Para utilizar esta API hay que tener en cuenta que URLs sirven para que proposito, que tipo de datos tienen que recibir (json) y su formato. aca abajo tendran un listado de todo esto explicado para que lo puedan implementar en su pagina web:
+Antes que nada, me interesaria que tengan en cuenta algunas cositas basicas. Luego de leerlo, van a tener en el apartado de  <a href="#Corroboracion">Corroboracion</a> hacia abajo las reales formas de uso de la API.
 
-* a
+### Base de Datos:
+
+Al realizar la migración de la base de datos, tene en cuenta los seeders crados en `database\seeders` que creara datos ficticio/de prueba en la BD. También se incluye la creación de un usuario admin.
+
+### Rutas y Controladores:
+
+Los controladores, que contienen el código para las funcionalidades de cada tabla de la base de datos, se encuentran en `app\Http\Controllers`. En `routes\api`, encontrarás las rutas que permiten que los controladores sean utilizados. Estas rutas varían según los permisos del usuario (`customer` / `admin` / `guest`).
+
+### Corroboracion:
+
+Si no cuentas con una aplicación específica, puedes probar la API utilizando herramientas como Postman. Asegúrate de iniciar la API con el siguiente comando:
+
+```sh
+php artisan serve
+```
+luego copiar y pegar la url por la cual la app este corriendo, por ejemplo: http://127.0.0.1:8000.
+
+## Rutas de la API
+
+Para ver las rutas existentes utilizar el comando :
+```sh
+php artisan route:list
+```
+Debajo estaran casi todas las rutas con su respectiva descripcion: 
+
+### Rol de Administrador (`admin`)
+
+#### Dashboard
+- **GET|HEAD** `api/admin`
+  - Acceso al dashboard del administrador.
+
+#### Categorías
+- **GET|HEAD** `api/admin/categories`
+  - Listado de categorías en el panel de administración.
+- **POST** `api/admin/categories`
+  - Crear una nueva categoría en el panel de administración.
+- **GET|HEAD** `api/admin/categories/{category}`
+  - Ver detalles específicos de una categoría en el panel de administración.
+- **PUT|PATCH** `api/admin/categories/{category}`
+  - Actualizar información de una categoría en el panel de administración.
+- **DELETE** `api/admin/categories/{category}`
+  - Eliminar una categoría en el panel de administración.
+- **PATCH** `api/admin/categories/{category}/restore`
+  - Restaurar una categoría previamente eliminada.
+
+#### Órdenes
+- **GET|HEAD** `api/admin/orders`
+  - Listado de órdenes en el panel de administración.
+- **POST** `api/admin/orders`
+  - Crear una nueva orden en el panel de administración.
+- **GET|HEAD** `api/admin/orders/{order}`
+  - Ver detalles específicos de una orden en el panel de administración.
+- **PUT|PATCH** `api/admin/orders/{order}`
+  - Actualizar información de una orden en el panel de administración.
+- **DELETE** `api/admin/orders/{order}`
+  - Eliminar una orden en el panel de administración.
+- **PATCH** `api/admin/orders/{order}/restore`
+  - Restaurar una orden previamente eliminada.
+
+#### Productos
+- **GET|HEAD** `api/admin/products`
+  - Listado de productos en el panel de administración.
+- **POST** `api/admin/products`
+  - Crear un nuevo producto en el panel de administración.
+- **GET|HEAD** `api/admin/products/{product}`
+  - Ver detalles específicos de un producto en el panel de administración.
+- **PUT|PATCH** `api/admin/products/{product}`
+  - Actualizar información de un producto en el panel de administración.
+- **DELETE** `api/admin/products/{product}`
+  - Eliminar un producto en el panel de administración.
+- **PATCH** `api/admin/products/{product}/restore`
+  - Restaurar un producto previamente eliminado.
+
+#### Usuarios
+- **GET|HEAD** `api/admin/users`
+  - Listado de usuarios en el panel de administración.
+- **POST** `api/admin/users`
+  - Crear un nuevo usuario en el panel de administración.
+- **GET|HEAD** `api/admin/users/{user}`
+  - Ver detalles específicos de un usuario en el panel de administración.
+- **PUT|PATCH** `api/admin/users/{user}`
+  - Actualizar información de un usuario en el panel de administración.
+- **DELETE** `api/admin/users/{user}`
+  - Eliminar un usuario en el panel de administración.
+- **PATCH** `api/admin/users/{user}/restore`
+  - Restaurar un usuario previamente eliminado.
+
+### Rol de Cliente (`customer`)
+
+#### Dashboard Cliente
+- **GET|HEAD** `api/customer`
+  - Acceso al dashboard del cliente.
+
+#### Categorías Cliente
+- **GET|HEAD** `api/customer/categories`
+  - Listado de categorías para clientes.
+- **POST** `api/customer/categories` REVISAR
+  - Crear una nueva categoría desde la perspectiva del cliente.
+- **GET|HEAD** `api/customer/categories/{category}`
+  - Ver detalles específicos de una categoría desde la perspectiva del cliente.
+- **DELETE** `api/customer/categories/{category}` REVISAR
+  - Eliminar una categoría desde la perspectiva del cliente.
+
+#### Órdenes Cliente
+- **GET|HEAD** `api/customer/orders`
+  - Listado de órdenes para clientes.
+- **POST** `api/customer/orders`
+  - Crear una nueva orden desde la perspectiva del cliente.
+- **GET|HEAD** `api/customer/orders/{order}`
+  - Ver detalles específicos de una orden desde la perspectiva del cliente.
+- **DELETE** `api/customer/orders/{order}`
+  - Eliminar una orden desde la perspectiva del cliente.
+
+#### Productos Cliente
+- **GET|HEAD** `api/customer/products`
+  - Listado de productos para clientes.
+- **GET|HEAD** `api/customer/products/{product}`
+  - Ver detalles específicos de un producto desde la perspectiva del cliente.
+
+#### Usuario Actual
+- **GET|HEAD** `api/user`
+  - Obtener detalles del usuario actual.
+
+                             
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
