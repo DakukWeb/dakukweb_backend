@@ -55,21 +55,21 @@
   <summary>Contenido importante</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Sobre el proyecto</a>
+      <a href="#Sobre el proyecto">Sobre el proyecto</a>
       <ul>
-        <li><a href="#built-with">Hecho con</a></li>
+        <li><a href="#Hecho con">Hecho con</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Iniciar App</a>
+      <a href="#Iniciar App">Iniciar App</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisitos</a></li>
-        <li><a href="#installation">Instalacion</a></li>
+        <li><a href="#Pre-requisitos">Pre-requisitos</a></li>
+        <li><a href="#Instalacion">Instalacion</a></li>
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#Licencia">Licencia</a></li>
+    <li><a href="#contactos">Contactos</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -77,7 +77,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## Sobre el proyecto
 
 Este proyecto consiste en una API desarrollada en Laravel, que tiene como objetivo principal proporcionar funcionalidades específicas y permitir la gestión y almacenamiento de datos. La API se diseño para  <a href="https://github.com/EitanMohorade/DakukWeb">Dakuk Web</a> pero sirve para cualquier E-commerce.
 
@@ -85,7 +85,7 @@ Este proyecto consiste en una API desarrollada en Laravel, que tiene como objeti
 
 
 
-### Built With
+### Hecho con
 
 El proyecto se realizo  con las siguientes tecnologias:
 
@@ -96,12 +96,11 @@ El proyecto se realizo  con las siguientes tecnologias:
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Iniciar App
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Ejemplo para iniciar la app. Primero ver los prerequisitos y instalacion :). 
 
-### Prerequisites
+### Pre-requisitos
 
 Antes de utilizar esta API, hay que cumplir con los siguientes pre requisitos y realiza la configuración necesaria:
 
@@ -110,7 +109,7 @@ Antes de utilizar esta API, hay que cumplir con los siguientes pre requisitos y 
 * configura las credenciales en el archivo `.env.`
 
 
-### Installation
+### Instalacion
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
@@ -125,6 +124,10 @@ Antes de utilizar esta API, hay que cumplir con los siguientes pre requisitos y 
    ```sh
    php artisan migrate --seed
    ```
+5. Iniciar app
+    ```sh
+    php artisan serve
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -133,32 +136,33 @@ Antes de utilizar esta API, hay que cumplir con los siguientes pre requisitos y 
 <!-- resumen -->
 ## Resumen
 
-Antes que nada, me interesaria que tengan en cuenta algunas cositas basicas. Luego de leerlo, van a tener en el apartado de  <a href="#Corroboracion">Corroboracion</a> hacia abajo las reales formas de uso de la API.
-
-### Base de Datos:
-
-Al realizar la migración de la base de datos, tene en cuenta los seeders crados en `database\seeders` que creara datos ficticio/de prueba en la BD. También se incluye la creación de un usuario admin.
-
-### Rutas y Controladores:
-
-Los controladores, que contienen el código para las funcionalidades de cada tabla de la base de datos, se encuentran en `app\Http\Controllers`. En `routes\api`, encontrarás las rutas que permiten que los controladores sean utilizados. Estas rutas varían según los permisos del usuario (`customer` / `admin` / `guest`).
-
-### Corroboracion:
-
-Si no cuentas con una aplicación específica, puedes probar la API utilizando herramientas como Postman. Asegúrate de iniciar la API con el siguiente comando:
-
-```sh
-php artisan serve
-```
-luego copiar y pegar la url por la cual la app este corriendo, por ejemplo: http://127.0.0.1:8000.
-
-## Rutas de la API
-
-Para ver las rutas existentes utilizar el comando :
+Lo relavante del codigo son las rutas de acceso para hacer consultas mediante metodos como GET, POST, PATCH etc. Para identificar la ruta necesaria y sus restricciones se pueden dirigir a `routes/api.php` como tambien ejecutar el siguiente comando:
 ```sh
 php artisan route:list
 ```
-Debajo estaran casi todas las rutas con su respectiva descripcion: 
+Este comando mostrará un listado de todas las rutas creadas, junto con sus nombres de acceso, es decir, el nombre de la función utilizada. Estas funciones se encuentran en la carpeta `app/Http/Controllers/`.
+
+### Testeo:
+
+Si queres probar el proyecto en tu entorno local, podes utilizar herramientas como Postman, que te permiten realizar pruebas en APIs.
+
+Para hacerlo, sigue estos pasos:
+
+* Inicia la aplicación como se mostró anteriormente.
+
+* Copia la URL de la aplicación después de iniciarla, por ejemplo: http://127.0.0.1:8000.
+
+* Abre Postman y pega la URL en la barra de direcciones.
+
+* Comenzar probando la API la siguiente ruta:
+
+#### Testeo
+- **GET|HEAD** `api/test`
+    - Devolvera un JSON de prueba.
+
+## Rutas
+
+Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las rutas que contengan algun rol como `admin` o `customer` estan utilizando el middleware `auth:sanctum`, esto se debe a que requieren autenticacion para que puedan acceder (atraves de tokens Sanctum). 
 
 ### Rol de Administrador (`admin`)
 
@@ -180,7 +184,7 @@ Debajo estaran casi todas las rutas con su respectiva descripcion:
 - **PATCH** `api/admin/categories/{category}/restore`
   - Restaurar una categoría previamente eliminada.
 
-#### Órdenes
+#### Ordenes
 - **GET|HEAD** `api/admin/orders`
   - Listado de órdenes en el panel de administración.
 - **POST** `api/admin/orders`
@@ -284,7 +288,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- LICENSE -->
-## License
+## Licencia
 
 Distribuido con la licencia MIT. Mirar `LICENSE.txt` para mas info.
 
@@ -293,7 +297,7 @@ Distribuido con la licencia MIT. Mirar `LICENSE.txt` para mas info.
 
 
 <!-- CONTACT -->
-## Contact
+## Contactos
 
 Eitan Mohorade - [@Linkedin](https://www.linkedin.com/in/eitan-mohorade-4b904826a/) - eitanluc@gmail.com
 

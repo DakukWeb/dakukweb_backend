@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('login',[LoginController::class,'login']);
+Route::get('/test', function () {
+    return response()->json(['hola' => 'mundo']);
+});
 //Route::apiResource('products', ProductController::class);
 
 
