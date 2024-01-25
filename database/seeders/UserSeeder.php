@@ -55,23 +55,25 @@ class UserSeeder extends Seeder
             $product_destroy
         ]);
 
-        //Customer//
-        $customer = User::create([
-            'name' => 'customer lol',
-            'email' => 'dakuk@customer.com',
-            'phone' => fake()->phoneNumber(),
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-        ]);
+         // Customers //
+         for ($i = 1; $i <= 5; $i++) {
+            $customer = User::create([
+                'name' => "Customer $i",
+                'email' => "customer$i@example.com",
+                'phone' => fake()->phoneNumber(),
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+            ]);
 
-        $customer->assignRole($customer_role);
-        $customer->givePermissionTo([
-            $product_index,
-            $product_store,
-            $product_show,
-            $product_update,
-            $product_destroy
-        ]);
+            $customer->assignRole($customer_role);
+            $customer->givePermissionTo([
+                $product_index,
+                $product_store,
+                $product_show,
+                $product_update,
+                $product_destroy
+            ]);
+        }
 
     }
 }
