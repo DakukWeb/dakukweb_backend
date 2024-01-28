@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -14,7 +16,7 @@ class UserController extends Controller
     //
     public function index()
     {
-        return User::withoutGlobalScopes()->get();
+        return new UserCollection(User::all()->keyBy->id);
     }
 
     /*
@@ -33,9 +35,9 @@ class UserController extends Controller
          return ["Result" => "Data has been stored"];
     }
 
-    public function show(User $user)
+    public function show($id)
     {
-        return view('admin.users.show', ['user' => $user]);
+        return new UserResource(User::find($id));
     }
 
     public function update(Request $request, $id)
