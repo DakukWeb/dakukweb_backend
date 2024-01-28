@@ -30,21 +30,21 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/EitanMohorade/DakukWeb_back-end">
+  <a href="https://github.com/DakukWeb/DakukWeb_BackEnd">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">DakukWeb_back-end</h3>
+  <h3 align="center">DakukWeb_BackEnd</h3>
 
   <p align="center">
     La API que da las funcionalidades a <a href="https://github.com/EitanMohorade/DakukWeb">DakukWeb</a>
     <br />
-    <a href="https://github.com/EitanMohorade/DakukWeb_back-end"><strong>Explora el repositorio »</strong></a>
+    <a href="https://github.com/DakukWeb/DakukWeb_BackEnd"><strong>Explora el repositorio »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/EitanMohorade/DakukWeb_back-end">Mira la demo</a>
+    <a href="https://github.com/DakukWeb/DakukWeb_BackEnd">Mira la demo</a>
     ·
-    <a href="https://github.com/EitanMohorade/DakukWeb_back-end/issues">Reporta un bug</a>
+    <a href="https://github.com/DakukWeb/DakukWeb_BackEnd/issues">Reporta un bug</a>
   </p>
 </div>
 
@@ -114,7 +114,7 @@ Antes de utilizar esta API, hay que cumplir con los siguientes pre requisitos y 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/EitanMohorade/DakukWeb_back-end.git
+   git clone https://github.com/DakukWeb/DakukWeb_BackEnd.git
    ```
 3. Instalar dependencias del proyecto
    ```sh
@@ -301,7 +301,7 @@ Distribuido con la licencia MIT. Mirar `LICENSE.txt` para mas info.
 
 Eitan Mohorade - [@Linkedin](https://www.linkedin.com/in/eitan-mohorade-4b904826a/) - eitanluc@gmail.com
 
-Project Link: [https://github.com/EitanMohorade/DakukWeb_back-end](https://github.com/EitanMohorade/DakukWeb_back-end)
+Project Link: [https://github.com/DakukWeb/DakukWeb_BackEnd](https://github.com/DakukWeb/DakukWeb_BackEnd)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -327,16 +327,16 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/EitanMohorade/DakukWeb_back-end.svg?style=for-the-badge
-[contributors-url]: https://github.com/EitanMohorade/DakukWeb_back-end/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/EitanMohorade/DakukWeb_back-end.svg?style=for-the-badge
-[forks-url]: https://github.com/EitanMohorade/DakukWeb_back-end/network/members
-[stars-shield]: https://img.shields.io/github/stars/EitanMohorade/DakukWeb_back-end.svg?style=for-the-badge
-[stars-url]: https://github.com/EitanMohorade/DakukWeb_back-end/stargazers
-[issues-shield]: https://img.shields.io/github/issues/EitanMohorade/DakukWeb_back-end.svg?style=for-the-badge
-[issues-url]: https://github.com/EitanMohorade/DakukWeb_back-end/issues
-[license-shield]: https://img.shields.io/github/license/EitanMohorade/DakukWeb_back-end.svg?style=for-the-badge
-[license-url]: https://github.com/EitanMohorade/DakukWeb_back-end/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/DakukWeb/DakukWeb_BackEnd.svg?style=for-the-badge
+[contributors-url]: https://github.com/DakukWeb/DakukWeb_BackEnd/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/DakukWeb/DakukWeb_BackEnd.svg?style=for-the-badge
+[forks-url]: https://github.com/DakukWeb/DakukWeb_BackEnd/network/members
+[stars-shield]: https://img.shields.io/github/stars/DakukWeb/DakukWeb_BackEnd.svg?style=for-the-badge
+[stars-url]: https://github.com/DakukWeb/DakukWeb_BackEnd/stargazers
+[issues-shield]: https://img.shields.io/github/issues/DakukWeb/DakukWeb_BackEnd.svg?style=for-the-badge
+[issues-url]: https://github.com/DakukWeb/DakukWeb_BackEnd/issues
+[license-shield]: https://img.shields.io/github/license/DakukWeb/DakukWeb_BackEnd.svg?style=for-the-badge
+[license-url]: https://github.com/DakukWeb/DakukWeb_BackEnd/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/eitan-mohorade-4b904826a/
 [product-screenshot]: images/screenshot.png
