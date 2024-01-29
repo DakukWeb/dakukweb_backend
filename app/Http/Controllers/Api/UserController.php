@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
@@ -40,30 +41,30 @@ class UserController extends Controller
         return new UserResource(User::find($id));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        return to_route('users.index');
+        return ["Result" => "Data has been updated"];
     }
 
     public function destroy($id)
     {
         $user = User::find($id);
         if($user->id == auth()->id()){
-            $alert = 'error';
-            $message = 'No puedes eliminar tu propio usuario.';
+            $alert = 'Error';
+            $message = 'You can not delete yourself';
         }
         else if(!$user->trashed()){
-            $alert = 'success';
+            $alert = 'Success';
             User::find($id)->delete();
-            $message = 'Usuario eliminado exitosamente';
+            $message = 'Data has been deleted';
         }
         else{
-            $alert = 'error';
-            $message = 'No se puede borrar un usuario ya eliminado o inexistente';
+            $alert = 'Error';
+            $message = 'You can not delete an non-existent user';
         }
-        return to_route('users.index')->with(['alert' => $alert, 'message' => $message]);
+        return ["$alert" => "$message"];
     }
 
     public function restore($id)
@@ -71,12 +72,14 @@ class UserController extends Controller
         $user = User::withTrashed()->find($id);
         if($user->trashed()){
             $user->restore();
-            $status = 'Usuario restaurado exitosamente';
+            $alert = 'Success';
+            $message = 'Data has been restored';
         }
         else{
-            $status = 'No se puede restaurar un usuario activo o inexistente';
+            $alert = 'Error';
+            $message = 'You can not restored an non-existent user';
         }
 
-        return to_route('users.index')->with('status', $status);
+        return ["$alert"=>"$message"];
     }
 }
