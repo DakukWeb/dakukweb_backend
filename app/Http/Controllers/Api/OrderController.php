@@ -12,15 +12,17 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderCollection;
 
-//ups
+// Controller for managing orders
 class OrderController extends Controller
 {
+    // Retrieves all orders and returns them as a collection
     public function index()
     {
         return new OrderCollection(Order::all()->keyBy->id);
     }
 
-    public function store(StoreOrderRequest $request)//falta
+    // Stores a new order using data from the request
+    public function store(StoreOrderRequest $request)
     {
         $orders = Order::create([
             'comments' => $request,
@@ -28,6 +30,7 @@ class OrderController extends Controller
         return ["Result"=>"Data has been stored"];
     }
 
+    // Updates an existing order with data from the request
     public function update(UpdateOrderRequest $request, $id)
     {
         $order = Order::findOrFail($id);
@@ -35,6 +38,7 @@ class OrderController extends Controller
         return ["Result" => "Data has been updated"];
     }
 
+    // Deletes an order by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
         $order = Order::find($id);
@@ -45,11 +49,12 @@ class OrderController extends Controller
         }
         else{
             $alert = 'Error';
-            $message = 'You can not delete an non-existent order';
+            $message = 'You cannot delete a non-existent order';
         }
         return ["$alert"=>"$message"];
     }
 
+    // Restores a soft-deleted order by its ID
     public function restore($id)
     {
         $order = Order::withTrashed()->find($id);
@@ -60,10 +65,9 @@ class OrderController extends Controller
         }
         else{
             $alert = 'Error';
-            $message = 'You can not restored an non-existent order';
+            $message = 'You cannot restore a non-existent order';
         }
 
         return ["$alert"=>"$message"];
     }
 }
-

@@ -14,12 +14,13 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-
+    // Retrieves all products and returns them as a collection
     public function index()
     {
         return new ProductCollection(Product::all()->keyBy->id);
     }
 
+    // Retrieves and returns a specific product by its ID
     public function show(Product $product)
     {
         if ($product) {
@@ -27,15 +28,9 @@ class ProductController extends Controller
         } else {
             return response()->json(['message' => 'Product not found'], 404);
         }
-        /*if (Auth::check()) {
-            $user = User::find(Auth::id());
-            if ($user->hasRole('admin')) {
-                return view('admin.products.show', ['product' => $product]);
-            }
-        }
-        return view('customer.products.show', ['product' => $product]);*/
     }
 
+    // Updates an existing product with data from the request
     public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -43,6 +38,7 @@ class ProductController extends Controller
         return ["Result" => "Data has been updated"];
     }
 
+    // Deletes a product by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
         $product = Product::find($id);
@@ -52,11 +48,12 @@ class ProductController extends Controller
             $message = 'Data has been deleted';
         } else {
             $status = 'Error';
-            $message = 'You can not delete an non-existent product';
+            $message = 'You cannot delete a non-existent product';
         }
         return ["$status" => "$message"];
     }
 
+    // Restores a soft-deleted product by its ID
     public function restore($id)
     {
         $product = Product::withTrashed()->find($id);
@@ -66,15 +63,16 @@ class ProductController extends Controller
             $message = 'Data has been restored';
         } else {
             $alert = 'Error';
-            $message = 'You can not restored an non-existent product';
+            $message = 'You cannot restore a non-existent product';
         }
 
         return ["$alert"=>"$message"];
     }
 
-    function store(StoreProductRequest $request) //falta categoria
+    // Stores a new product using data from the request
+    function store(StoreProductRequest $request) // Assuming category information is missing
     {
-        //$request->validate(ValidationRules::productRules());
+        // Validation commented out, assuming it's done in a separate class
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -82,6 +80,6 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'image' => $request->image,
         ]);
-         return ["Result" => "Data has been stored"];
+        return ["Result" => "Data has been stored"];
     }
 }

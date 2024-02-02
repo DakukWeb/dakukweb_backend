@@ -175,10 +175,24 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
   - Listado de categorías en el panel de administración.
 - **POST** `api/admin/categories`
   - Crear una nueva categoría en el panel de administración.
+    - Json:
+    ```sh
+    {
+        "name": "string",
+        "category_id": "father category id"
+    }
+    ```  
 - **GET|HEAD** `api/admin/categories/{category}`
   - Ver detalles específicos de una categoría en el panel de administración.
 - **PUT|PATCH** `api/admin/categories/{category}`
   - Actualizar información de una categoría en el panel de administración.
+    - Json(optional):
+    ```sh
+    {
+        "name": "string",
+        "category_id": "father category id"
+    }
+    ```  
 - **DELETE** `api/admin/categories/{category}`
   - Eliminar una categoría en el panel de administración.
 - **PATCH** `api/admin/categories/{category}/restore`
@@ -189,10 +203,22 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
   - Listado de órdenes en el panel de administración.
 - **POST** `api/admin/orders`
   - Crear una nueva orden en el panel de administración.
+    - Json:
+    ```sh
+    {
+        "comments": "string"
+    }
+    ```  
 - **GET|HEAD** `api/admin/orders/{order}`
   - Ver detalles específicos de una orden en el panel de administración.
 - **PUT|PATCH** `api/admin/orders/{order}`
   - Actualizar información de una orden en el panel de administración.
+    - Json(optional):
+    ```sh
+    {
+        "comments": "string"
+    }
+    ```  
 - **DELETE** `api/admin/orders/{order}`
   - Eliminar una orden en el panel de administración.
 - **PATCH** `api/admin/orders/{order}/restore`
@@ -203,10 +229,30 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
   - Listado de productos en el panel de administración.
 - **POST** `api/admin/products`
   - Crear un nuevo producto en el panel de administración.
+    - Json:
+    ```sh
+    {
+        "name": "string",
+        "description": "string",
+        "price": "int",
+        "stock": "int",
+        "image": "string"
+    }
+    ```  
 - **GET|HEAD** `api/admin/products/{product}`
   - Ver detalles específicos de un producto en el panel de administración.
 - **PUT|PATCH** `api/admin/products/{product}`
   - Actualizar información de un producto en el panel de administración.
+    - Json(optional):
+    ```sh
+    {
+        "name": "string",
+        "description": "string",
+        "price": "int",
+        "stock": "int",
+        "image": "string"
+    }
+    ```  
 - **DELETE** `api/admin/products/{product}`
   - Eliminar un producto en el panel de administración.
 - **PATCH** `api/admin/products/{product}/restore`
@@ -217,10 +263,28 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
   - Listado de usuarios en el panel de administración.
 - **POST** `api/admin/users`
   - Crear un nuevo usuario en el panel de administración.
+    - Json:
+    ```sh
+    {
+        "name": "string",
+        "email": "string",
+        "password": "string",
+        "phone": "int",
+    }
+    ```  
 - **GET|HEAD** `api/admin/users/{user}`
   - Ver detalles específicos de un usuario en el panel de administración.
 - **PUT|PATCH** `api/admin/users/{user}`
   - Actualizar información de un usuario en el panel de administración.
+    - Json(optional):
+    ```sh
+    {
+        "name": "string",
+        "email": "string",
+        "password": "string",
+        "phone": "int",
+    }
+    ```  
 - **DELETE** `api/admin/users/{user}`
   - Eliminar un usuario en el panel de administración.
 - **PATCH** `api/admin/users/{user}/restore`
@@ -247,6 +311,12 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
   - Listado de órdenes para clientes.
 - **POST** `api/customer/orders`
   - Crear una nueva orden desde la perspectiva del cliente.
+      - Json:
+    ```sh
+    {
+        "comments": "string"
+    }
+    ```  
 - **GET|HEAD** `api/customer/orders/{order}`
   - Ver detalles específicos de una orden desde la perspectiva del cliente.
 - **DELETE** `api/customer/orders/{order}`
@@ -261,6 +331,19 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 #### Usuario Actual
 - **GET|HEAD** `api/user`
   - Obtener detalles del usuario actual.
+
+### Usuarios sin rol
+
+#### log in
+- **POST** `api/login`
+  - Iniciar sesion al rol customer o admin
+      - Json:
+    ```sh
+    {
+        "email": "string",
+        "password": "string"
+    }
+    ```  
 
                              
 

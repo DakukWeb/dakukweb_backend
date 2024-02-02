@@ -14,15 +14,13 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    //
+    // Retrieves all users and returns them as a collection
     public function index()
     {
         return new UserCollection(User::all()->keyBy->id);
     }
 
-    /*
-        Store
-    */
+    // Stores a new user using data from the request
     public function store(StoreUserRequest $request)
     {
         $user = User::create([
@@ -31,15 +29,18 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
         ]);
-         $user->assignRole('customer');
-         return ["Result" => "Data has been stored"];
+        // Assigns the 'customer' role to the newly created user
+        $user->assignRole('customer');
+        return ["Result" => "Data has been stored"];
     }
 
+    // Retrieves and returns a specific user by its ID
     public function show($id)
     {
         return new UserResource(User::find($id));
     }
 
+    // Updates an existing user with data from the request
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -47,36 +48,35 @@ class UserController extends Controller
         return ["Result" => "Data has been updated"];
     }
 
+    // Deletes a user by its ID and handles self-deletion and soft deletion if applicable
     public function destroy($id)
     {
         $user = User::find($id);
-        if($user->id == auth()->id()){
+        if ($user->id == auth()->id()) {
             $alert = 'Error';
-            $message = 'You can not delete yourself';
-        }
-        else if(!$user->trashed()){
+            $message = 'You cannot delete yourself';
+        } else if (!$user->trashed()) {
             $alert = 'Success';
             User::find($id)->delete();
             $message = 'Data has been deleted';
-        }
-        else{
+        } else {
             $alert = 'Error';
-            $message = 'You can not delete an non-existent user';
+            $message = 'You cannot delete a non-existent user';
         }
         return ["$alert" => "$message"];
     }
 
+    // Restores a soft-deleted user by its ID
     public function restore($id)
     {
         $user = User::withTrashed()->find($id);
-        if($user->trashed()){
+        if ($user->trashed()) {
             $user->restore();
             $alert = 'Success';
             $message = 'Data has been restored';
-        }
-        else{
+        } else {
             $alert = 'Error';
-            $message = 'You can not restored an non-existent user';
+            $message = 'You cannot restore a non-existent user';
         }
 
         return ["$alert"=>"$message"];
