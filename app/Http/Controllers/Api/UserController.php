@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Helpers\Helper;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -23,14 +24,14 @@ class UserController extends Controller
     // Stores a new user using data from the request
     public function store(StoreUserRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-        ]);
-        // Assigns the 'customer' role to the newly created user
-        $user->assignRole('customer');
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone,
+            ]);
+            // Assigns the 'customer' role to the newly created user
+            $user->assignRole('customer');
         return ["Result" => "Data has been stored"];
     }
 

@@ -299,12 +299,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 #### Categorías Cliente
 - **GET|HEAD** `api/customer/categories`
   - Listado de categorías para clientes.
-- **POST** `api/customer/categories` REVISAR
-  - Crear una nueva categoría desde la perspectiva del cliente.
 - **GET|HEAD** `api/customer/categories/{category}`
   - Ver detalles específicos de una categoría desde la perspectiva del cliente.
-- **DELETE** `api/customer/categories/{category}` REVISAR
-  - Eliminar una categoría desde la perspectiva del cliente.
 
 #### Órdenes Cliente
 - **GET|HEAD** `api/customer/orders`
@@ -343,7 +339,37 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
         "email": "string",
         "password": "string"
     }
-    ```  
+    ```
+
+#### log out
+- **POST** `api/logout`
+  - Cerrar sesion de customer o admin y revocar token
+      - Requiere token
+    
+#### sign up
+- **POST** `api/signup`
+  - Agregar usuario nuevo y asignar rol customer
+      - Json:
+    ```sh
+    {
+        "name": "string",
+        "email": "string",
+        "password": "string",
+        "phone": "int"
+    }
+    ``` 
+
+#### Categorías 
+- **GET|HEAD** `api/categories`
+  - Listado de categorías.
+- **GET|HEAD** `api/categories/{category}`
+  - Ver detalles específicos de una categoría.
+
+#### Productos Cliente
+- **GET|HEAD** `api/products`
+  - Listado de productos.
+- **GET|HEAD** `api/products/{product}`
+  - Ver detalles específicos de un producto.
 
                              
 

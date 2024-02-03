@@ -7,9 +7,9 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Helpers\Helper;
 use App\Http\Resources\UserResource;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
@@ -18,4 +18,13 @@ class LoginController extends Controller
         }
         return new UserResource(auth()->user());
     }
+
+    public function logout()
+    {
+        $user = Auth::user();
+        // Revocar todos los tokens de acceso del usuario
+        $user->tokens()->delete();
+        return ["Result" => "User logged out"];
+    }
 }
+
