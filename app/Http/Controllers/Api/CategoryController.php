@@ -53,30 +53,15 @@ class CategoryController extends Controller
   public function destroy($id)
   {
     $category = Category::find($id);
-    if (!$category->trashed()) {
-      Category::find($id)->delete();
-      $alert = 'Success';
-      $message = 'Data has been deleted';
-    } else {
-        $alert = 'Error';
-        $message = 'You cannot delete a non-existent category';
-    }
-    return ["$alert"=>"$message"];
+    Category::find($id)->delete();
+    return ["Result"=>"Data has been deleted"];
   }
 
   // Restores a soft-deleted category by its ID
   public function restore($id)
   {
     $category = Category::withTrashed()->find($id);
-    if ($category->trashed()) {
-        $category->restore();
-        $alert = 'Success';
-        $message = 'Data has been restored';
-    } else {
-        $alert = 'Error';
-        $message = 'You cannot restore a non-existent category';
-    }
-
-    return ["$alert"=>"$message"];
+    $category->restore();
+    return ["Result"=>"Data has been restored"];
   }
 }

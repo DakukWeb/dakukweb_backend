@@ -206,7 +206,9 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     - Json:
     ```sh
     {
-        "comments": "string"
+    "user_id": "user id",
+    "status": "in:pending,confirmed,delivered,cancelled,denied",
+    "comments": "string"
     }
     ```  
 - **GET|HEAD** `api/admin/orders/{order}`
@@ -310,7 +312,9 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
       - Json:
     ```sh
     {
-        "comments": "string"
+    "user_id": "user id",
+    "status": "in:pending,confirmed,delivered,cancelled,denied",
+    "comments": "string"
     }
     ```  
 - **GET|HEAD** `api/customer/orders/{order}`
@@ -365,7 +369,7 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 - **GET|HEAD** `api/categories/{category}`
   - Ver detalles específicos de una categoría.
 
-#### Productos Cliente
+#### Productos
 - **GET|HEAD** `api/products`
   - Listado de productos.
 - **GET|HEAD** `api/products/{product}`

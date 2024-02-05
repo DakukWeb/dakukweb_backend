@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class StoreOrderRequest extends FormRequest
 {
     /**
@@ -22,8 +23,9 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comments' => 'required',
-            //'user_id' => 'required',
+            'comments' => 'nullable|string',
+            'user_id' => 'required|exists:users,id',
+            'status' => 'required|in:pending,confirmed,delivered,cancelled,denied'
         ];
     }
 }

@@ -12,6 +12,7 @@ use App\Http\Resources\ProductCollection;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
+
 class ProductController extends Controller
 {
     // Retrieves all products and returns them as a collection
@@ -42,36 +43,27 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        if (!$product->trashed()) {
-            Product::find($id)->delete();
-            $status = 'Success';
-            $message = 'Data has been deleted';
-        } else {
-            $status = 'Error';
-            $message = 'You cannot delete a non-existent product';
-        }
-        return ["$status" => "$message"];
+        Product::find($id)->delete();
+        return ["Result" => "Data has been deleted"];
     }
 
     // Restores a soft-deleted product by its ID
     public function restore($id)
     {
         $product = Product::withTrashed()->find($id);
-        if ($product->trashed()) {
-            $product->restore();
-            $alert = 'Success';
-            $message = 'Data has been restored';
-        } else {
-            $alert = 'Error';
-            $message = 'You cannot restore a non-existent product';
-        }
-
-        return ["$alert"=>"$message"];
+        $product->restore();
+        return ["Result"=>"Data has been restored"];
     }
 
     // Stores a new product using data from the request
     function store(StoreProductRequest $request) // Assuming category information is missing
     {
+        /*
+         $imageName = time() . '-' . $request->name . '.' .
+        $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+        */
+
         // Validation commented out, assuming it's done in a separate class
         $product = Product::create([
             'name' => $request->name,

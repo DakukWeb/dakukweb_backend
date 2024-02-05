@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Helpers\Helper;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -31,7 +31,7 @@ class UserController extends Controller
                 'phone' => $request->phone,
             ]);
             // Assigns the 'customer' role to the newly created user
-            $user->assignRole('customer');
+        $user->assignRole('customer');
         return ["Result" => "Data has been stored"];
     }
 
@@ -57,12 +57,9 @@ class UserController extends Controller
             $alert = 'Error';
             $message = 'You cannot delete yourself';
         } else if (!$user->trashed()) {
-            $alert = 'Success';
+            $alert = 'Result';
             User::find($id)->delete();
             $message = 'Data has been deleted';
-        } else {
-            $alert = 'Error';
-            $message = 'You cannot delete a non-existent user';
         }
         return ["$alert" => "$message"];
     }
@@ -71,15 +68,7 @@ class UserController extends Controller
     public function restore($id)
     {
         $user = User::withTrashed()->find($id);
-        if ($user->trashed()) {
-            $user->restore();
-            $alert = 'Success';
-            $message = 'Data has been restored';
-        } else {
-            $alert = 'Error';
-            $message = 'You cannot restore a non-existent user';
-        }
-
-        return ["$alert"=>"$message"];
+        $user->restore();
+        return ["Result"=>"Data has been restored"];
     }
 }

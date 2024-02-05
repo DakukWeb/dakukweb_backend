@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
-use App\Http\Helpers\Helper;
+
 
 class LoginRequest extends FormRequest
 {
@@ -24,14 +24,10 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
             'email' => 'required|email|',
             'password' => 'required|string|min:8',
-            'phone' => 'required|string|max:15'
+            'phone' => 'string|max:15'
         ];
-    }
-    public function failedValidation(Validator $validator)
-    {
-        Helper::sendError('validation error', $validator->errors());
     }
 }

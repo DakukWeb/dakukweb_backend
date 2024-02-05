@@ -25,7 +25,9 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         $orders = Order::create([
-            'comments' => $request,
+            'comments' => $request->comments,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
         ]);
         return ["Result"=>"Data has been stored"];
     }
@@ -42,32 +44,15 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $order = Order::find($id);
-        if(!$order->trashed()){
-            Order::find($id)->delete();
-            $alert = 'Success';
-            $message = 'Data has been deleted';
-        }
-        else{
-            $alert = 'Error';
-            $message = 'You cannot delete a non-existent order';
-        }
-        return ["$alert"=>"$message"];
+        Order::find($id)->delete();
+        return ["Result"=>"Data has been deleted"];
     }
 
     // Restores a soft-deleted order by its ID
     public function restore($id)
     {
         $order = Order::withTrashed()->find($id);
-        if($order->trashed()){
-            $order->restore();
-            $alert = 'Success';
-            $message = 'Data has been restored';
-        }
-        else{
-            $alert = 'Error';
-            $message = 'You cannot restore a non-existent order';
-        }
-
-        return ["$alert"=>"$message"];
+        $order->restore();
+        return ["Result"=>"Data has been restored"];
     }
 }
