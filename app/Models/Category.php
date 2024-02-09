@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Searchable, HasRoles;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -24,17 +23,14 @@ class Category extends Model
         'name',
         'category_id'
     ];
-
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
-
     public function categories()
     {
         return $this->hasMany(Category::class);
     }
-
     /**
      * The attributes that are searchable
      */
@@ -48,15 +44,9 @@ class Category extends Model
             "deleted_at" => $this->deleted_at,
         ];
     }
-
-    public function getStatusColorAttribute()
-    {
-        return $this->deleted_at ? 'red' : 'green';
-    }
-
     /**
      * Get the specified resource based on the selected status & search params
-     * 
+     *
      * @param string $search
      * @param string $status
      */
@@ -65,21 +55,15 @@ class Category extends Model
         $query = self::search($search);
         return ($status == 'deleted') ? $query->onlyTrashed() : $query;
     }
-
     public static function tree() {
         $categories = Category::get();
-
         $rootCategories = $categories->whereNull('category_id');
-
         self::formatTree($rootCategories, $categories);
-
         return $rootCategories;
     }
-
     private static function formatTree($categories, $allCategories) {
         foreach($categories as $category) {
             $category->children = $allCategories->where('category_id', $category->id)->values();
-
             if($category->children->isNotEmpty()) self::formatTree($category->children, $allCategories);
         }
     }

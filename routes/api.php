@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\AuthController;
 
+
+use App\Http\Controllers\Api\test;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,6 +29,7 @@ Route::get('/test', function () {
     return response()->json(['hola' => 'mundo']);
 })->name('test');
 
+Route::get('error', [test::class, 'index']);
 // Grupo de rutas para no-usuarios
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
 

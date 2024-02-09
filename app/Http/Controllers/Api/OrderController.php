@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Models\User;
-use App\ValidationRules;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -20,7 +16,6 @@ class OrderController extends Controller
     {
         return new OrderCollection(Order::all()->keyBy->id);
     }
-
     // Stores a new order using data from the request
     public function store(StoreOrderRequest $request)
     {
@@ -31,7 +26,6 @@ class OrderController extends Controller
         ]);
         return ["Result"=>"Data has been stored"];
     }
-
     // Updates an existing order with data from the request
     public function update(UpdateOrderRequest $request, $id)
     {
@@ -39,7 +33,6 @@ class OrderController extends Controller
         $order->update($request->all());
         return ["Result" => "Data has been updated"];
     }
-
     // Deletes an order by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
@@ -47,7 +40,6 @@ class OrderController extends Controller
         Order::find($id)->delete();
         return ["Result"=>"Data has been deleted"];
     }
-
     // Restores a soft-deleted order by its ID
     public function restore($id)
     {

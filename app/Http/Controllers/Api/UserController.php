@@ -8,9 +8,6 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
@@ -20,7 +17,6 @@ class UserController extends Controller
     {
         return new UserCollection(User::all()->keyBy->id);
     }
-
     // Stores a new user using data from the request
     public function store(StoreUserRequest $request)
     {
@@ -34,13 +30,11 @@ class UserController extends Controller
         $user->assignRole('customer');
         return ["Result" => "Data has been stored"];
     }
-
     // Retrieves and returns a specific user by its ID
     public function show($id)
     {
         return new UserResource(User::find($id));
     }
-
     // Updates an existing user with data from the request
     public function update(UpdateUserRequest $request, $id)
     {
@@ -48,7 +42,6 @@ class UserController extends Controller
         $user->update($request->all());
         return ["Result" => "Data has been updated"];
     }
-
     // Deletes a user by its ID and handles self-deletion and soft deletion if applicable
     public function destroy($id)
     {
@@ -63,7 +56,6 @@ class UserController extends Controller
         }
         return ["$alert" => "$message"];
     }
-
     // Restores a soft-deleted user by its ID
     public function restore($id)
     {

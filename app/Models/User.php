@@ -14,7 +14,6 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Searchable, HasRoles;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +25,6 @@ class User extends Authenticatable
         'password',
         'phone',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -36,7 +34,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
     /**
      * The attributes that should be cast.
      *
@@ -46,12 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
-
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
-
     /**
      * Get the indexable data array for the model.
      *
@@ -69,12 +64,6 @@ class User extends Authenticatable
             "deleted_at" => $this->deleted_at,
         ];
     }
-
-    public function getStatusColorAttribute()
-    {
-        return $this->deleted_at ? 'red' : 'green';
-    }
-
     /**
      * Get the specified resource based on the selected status & search params
      *
@@ -86,7 +75,6 @@ class User extends Authenticatable
         $query = self::search($search, function ($query) {
             $query->where('id', '!=', auth()->id());
         });
-
         return ($status == 'deleted') ? $query->onlyTrashed() : $query;
     }
 }

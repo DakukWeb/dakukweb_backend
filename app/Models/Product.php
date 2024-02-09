@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Searchable, HasRoles;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -27,7 +26,6 @@ class Product extends Model
         'stock',
         'price'
     ];
-
     /**
      * Returns the product category.
      *
@@ -49,15 +47,9 @@ class Product extends Model
             "deleted_at" => $this->deleted_at,
         ];
     }
-
-    public function getStatusColorAttribute()
-    {
-        return $this->deleted_at ? 'red' : 'green';
-    }
-
     /**
      * Get the specified resource based on the selected status & search params
-     * 
+     *
      * @param string $search
      * @param string $status
      */

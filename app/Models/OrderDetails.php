@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class OrderDetails extends Model
 {
     use HasFactory, SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -21,11 +20,9 @@ class OrderDetails extends Model
         'quantity',
         'amount',
     ];
-
     public function order() {
         return $this->belongsTo(Order::class);
     }
-
     public function product() {
         return $this->hasOne(Product::class);
     }

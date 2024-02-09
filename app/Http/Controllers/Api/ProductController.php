@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\User;
-use App\ValidationRules;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductCollection;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-
-
 class ProductController extends Controller
 {
     // Retrieves all products and returns them as a collection
@@ -20,17 +14,12 @@ class ProductController extends Controller
     {
         return new ProductCollection(Product::all()->keyBy->id);
     }
-
     // Retrieves and returns a specific product by its ID
-    public function show(Product $product)
+    public function show($id)
     {
-        if ($product) {
+            $product = Product::findOrFail($id);
             return response()->json(['data' => $product], 200);
-        } else {
-            return response()->json(['message' => 'Product not found'], 404);
-        }
     }
-
     // Updates an existing product with data from the request
     public function update(UpdateProductRequest $request, $id)
     {
@@ -38,7 +27,6 @@ class ProductController extends Controller
         $product->update($request->all());
         return ["Result" => "Data has been updated"];
     }
-
     // Deletes a product by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
@@ -46,7 +34,6 @@ class ProductController extends Controller
         Product::find($id)->delete();
         return ["Result" => "Data has been deleted"];
     }
-
     // Restores a soft-deleted product by its ID
     public function restore($id)
     {
@@ -54,16 +41,14 @@ class ProductController extends Controller
         $product->restore();
         return ["Result"=>"Data has been restored"];
     }
-
     // Stores a new product using data from the request
     function store(StoreProductRequest $request) // Assuming category information is missing
     {
         /*
-         $imageName = time() . '-' . $request->name . '.' .
+        $imageName = time() . '-' . $request->name . '.' .
         $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         */
-
         // Validation commented out, assuming it's done in a separate class
         $product = Product::create([
             'name' => $request->name,

@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Searchable, HasRoles;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -25,11 +24,9 @@ class Order extends Model
         'status',
         'comments',
     ];
-
     public function user(){
         return $this->belongsTo(User::class);
     }
-
     public function orderDetails(){
         return $this->hasMany(OrderDetails::class);
     }
@@ -45,15 +42,9 @@ class Order extends Model
             "deleted_at" => $this->deleted_at,
         ];
     }
-
-    public function getStatusColorAttribute()
-    {
-        return $this->deleted_at ? 'red' : 'green';
-    }
-
     /**
      * Get the specified resource based on the selected status & search params
-     * 
+     *
      * @param string $search
      * @param string $status
      */
@@ -62,7 +53,6 @@ class Order extends Model
         $query = self::search($search, function ($query) {
             $query->where('id', '!=', auth()->id());
         });
-
         return ($status == 'deleted') ? $query->onlyTrashed() : $query;
     }
 }
