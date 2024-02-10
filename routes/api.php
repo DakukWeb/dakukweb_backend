@@ -43,11 +43,7 @@ Route::get('/test', function () {
             return response()->json(['role' => 'customer']);
         });
         //Route::view('/', 'customer.dashboard')->name('dashboard');
-        Route::get('products', [ProductController::class, 'index'])->name('products.index');
-        Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
-        //
         Route::apiResource('orders', OrderController::class)->except(['edit', 'update']);
-        Route::apiResource('categories', CategoryController::class)->except(['edit', 'update', 'destroy', 'store']);
     });
 // Grupo de rutas para los usuarios con el rol "admin"
     Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->group(function () {

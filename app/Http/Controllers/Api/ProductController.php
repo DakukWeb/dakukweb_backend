@@ -25,21 +25,21 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return ["Result" => "Data has been updated"];
+        return ["Result" => "Data has been updated", "data" => $product];
     }
     // Deletes a product by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         Product::find($id)->delete();
-        return ["Result" => "Data has been deleted"];
+        return ["Result" => "Data has been deleted", "data" => $product];
     }
     // Restores a soft-deleted product by its ID
     public function restore($id)
     {
         $product = Product::withTrashed()->find($id);
         $product->restore();
-        return ["Result"=>"Data has been restored"];
+        return ["Result"=>"Data has been restored", "data" => $product];
     }
     // Stores a new product using data from the request
     function store(StoreProductRequest $request) // Assuming category information is missing
@@ -57,6 +57,6 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'image' => $request->image,
         ]);
-        return ["Result" => "Data has been stored"];
+        return ["Result" => "Data has been stored", "data" => $product];
     }
 }

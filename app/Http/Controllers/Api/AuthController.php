@@ -21,7 +21,7 @@ class AuthController extends Controller
         $user = Auth::user();
         // Revocar todos los tokens de acceso del usuario
         $user->tokens()->delete();
-        return ["Result" => "User logged out"];
+        return ["Result" => "User logged out", "data" => $user];
     }
 }
 

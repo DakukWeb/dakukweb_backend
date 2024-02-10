@@ -130,10 +130,17 @@ Para hacerlo, sigue estos pasos:
 
 * **GET|HEAD** `api/test`
   * Devolvera un JSON de prueba.
+    * Response:
+
+    ```sh
+    {
+        "hola": "mundo"
+    }
+    ```
 
 ## Rutas
 
-Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las rutas que contengan algun rol como `admin` o `customer` estan utilizando el middleware `auth:sanctum`, esto se debe a que requieren autenticacion para que puedan acceder (atraves de tokens Sanctum). 
+Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las rutas que contengan algun rol como `admin` o `customer` estan utilizando el middleware `auth:sanctum`, esto se debe a que requieren autenticacion para que puedan acceder (atraves de tokens Sanctum).
 
 ### Rol de Administrador (`admin`)
 
@@ -141,11 +148,38 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
 * **GET|HEAD** `api/admin`
   * Acceso al dashboard del administrador.
+    * Response:
+
+    ```sh
+    {
+        "hola": "mundo"
+    }
+    ```
 
 #### Categorías
 
 * **GET|HEAD** `api/admin/categories`
   * Listado de categorías en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": int,
+                "category_id": null,
+                "name": "Noah Renner I",
+                "created_at": "2024-02-10T16:41:33.000000Z",
+                "updated_at": "2024-02-10T16:41:33.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+                "self": "link-value"
+            }
+    }
+    ```
+
 * **POST** `api/admin/categories`
   * Crear una nueva categoría en el panel de administración.
     * Json:
@@ -157,8 +191,34 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been stored",
+        "data": {
+            "category"
+        }
+    }
+    ```
+
 * **GET|HEAD** `api/admin/categories/{category}`
   * Ver detalles específicos de una categoría en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "id": 1,
+            "category_id": null,
+            "name": "Noah Renner I",
+            "created_at": "2024-02-10T16:41:33.000000Z",
+            "updated_at": "2024-02-10T16:41:33.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
+
 * **PUT|PATCH** `api/admin/categories/{category}`
   * Actualizar información de una categoría en el panel de administración.
     * Json(optional):
@@ -170,15 +230,68 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been updated",
+        "data": {
+            "category"
+        }
+    }
+    ```
+
 * **DELETE** `api/admin/categories/{category}`
   * Eliminar una categoría en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been deleted",
+        "data": {
+            "category"
+        }
+    }
+    ```
+
 * **PATCH** `api/admin/categories/{category}/restore`
   * Restaurar una categoría previamente eliminada.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been restored",
+        "data": {
+            "category"
+        }
+    }
+    ```
 
 #### Ordenes
 
 * **GET|HEAD** `api/admin/orders`
   * Listado de órdenes en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": 1,
+                "user_id": 6,
+                "status": "cancelled",
+                "comments": null,
+                "created_at": "2024-02-10T16:41:33.000000Z",
+                "updated_at": "2024-02-10T16:41:33.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
 * **POST** `api/admin/orders`
   * Crear una nueva orden en el panel de administración.
     * Json:
@@ -191,8 +304,35 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been stored",
+        "data": {
+            "order"
+        }
+    }
+    ```
+
 * **GET|HEAD** `api/admin/orders/{order}`
   * Ver detalles específicos de una orden en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "id": 1,
+            "user_id": 6,
+            "status": "cancelled",
+            "comments": null,
+            "created_at": "2024-02-10T16:41:33.000000Z",
+            "updated_at": "2024-02-10T16:41:33.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
+
 * **PUT|PATCH** `api/admin/orders/{order}`
   * Actualizar información de una orden en el panel de administración.
     * Json(optional):
@@ -203,15 +343,71 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been updated",
+        "data": {
+            "order"
+        }
+    }
+    ```
+
 * **DELETE** `api/admin/orders/{order}`
   * Eliminar una orden en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been deleted",
+        "data": {
+            "order"
+        }
+    }
+    ```
+
 * **PATCH** `api/admin/orders/{order}/restore`
   * Restaurar una orden previamente eliminada.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been restored",
+        "data": {
+            "order"
+        }
+    }
+    ```
 
 #### Productos
 
 * **GET|HEAD** `api/admin/products`
   * Listado de productos en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": 1,
+                "name": "Otilia O'Connell",
+                "category_id": 6,
+                "image": "https://via.placeholder.com/400x400.png/007777?text=et",
+                "description": "Earum saepe repellat autem et expedita odio maxime. Ea dolore labore ea. Consequuntur et saepe quia qui sit quia. Voluptatem veniam fugiat velit vel nobis a ipsum.",
+                "stock": 1034,
+                "price": 29696.84,
+                "created_at": "2024-02-10T16:41:33.000000Z",
+                "updated_at": "2024-02-10T16:41:33.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
 * **POST** `api/admin/products`
   * Crear un nuevo producto en el panel de administración.
     * Json:
@@ -226,8 +422,38 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been stored",
+        "data": {
+            "product"
+        }
+    }
+    ```
+
 * **GET|HEAD** `api/admin/products/{product}`
   * Ver detalles específicos de un producto en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "id": 1,
+            "name": "Otilia O'Connell",
+            "category_id": 6,
+            "image": "https://via.placeholder.com/400x400.png/007777?text=et",
+            "description": "Earum saepe repellat autem et expedita odio maxime. Ea dolore labore ea. Consequuntur et saepe quia qui sit quia. Voluptatem veniam fugiat velit vel nobis a ipsum.",
+            "stock": 1034,
+            "price": 29696.84,
+            "created_at": "2024-02-10T16:41:33.000000Z",
+            "updated_at": "2024-02-10T16:41:33.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
+
 * **PUT|PATCH** `api/admin/products/{product}`
   * Actualizar información de un producto en el panel de administración.
     * Json(optional):
@@ -242,15 +468,55 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been updated",
+        "data": {
+            "product"
+        }
+    }
+    ```
+
 * **DELETE** `api/admin/products/{product}`
   * Eliminar un producto en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been deleted",
+        "data": {
+            "product"
+        }
+    }
+    ```
+
 * **PATCH** `api/admin/products/{product}/restore`
   * Restaurar un producto previamente eliminado.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been restored",
+        "data": {
+            "product"
+        }
+    }
+    ```
 
 #### Usuarios
 
 * **GET|HEAD** `api/admin/users`
   * Listado de usuarios en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "hola": "mundo"
+    }
+    ```
+
 * **POST** `api/admin/users`
   * Crear un nuevo usuario en el panel de administración.
     * Json:
@@ -264,8 +530,69 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "user_id": 1,
+                "name": "Holden Becker",
+                "email": "vrath@example.net",
+                "token": "2|ScFFnFbdQ7c7z90x3PyJ7g4oNKSoGbLXpZXTvNAH2ffe2526",
+                "roles": [
+                    {
+                        "id": 2,
+                        "name": "customer",
+                        "guard_name": "web",
+                        "created_at": "2024-02-10T16:41:29.000000Z",
+                        "updated_at": "2024-02-10T16:41:29.000000Z",
+                        "pivot": {
+                            "model_type": "App\\Models\\User",
+                            "model_id": 1,
+                            "role_id": 2
+                        }
+                    }
+                ],
+                "permissions": []
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
 * **GET|HEAD** `api/admin/users/{user}`
   * Ver detalles específicos de un usuario en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "user_id": 1,
+            "name": "Holden Becker",
+            "email": "vrath@example.net",
+            "token": "23|e5jIAQITQUKaFrvNUecnmMlEJU5vHUAfy013AbWuc3383f29",
+            "roles": [
+                {
+                    "id": 2,
+                    "name": "customer",
+                    "guard_name": "web",
+                    "created_at": "2024-02-10T16:41:29.000000Z",
+                    "updated_at": "2024-02-10T16:41:29.000000Z",
+                    "pivot": {
+                        "model_type": "App\\Models\\User",
+                        "model_id": 1,
+                        "role_id": 2
+                    }
+                }
+            ],
+            "permissions": []
+        }
+    }
+    ```
+
 * **PUT|PATCH** `api/admin/users/{user}`
   * Actualizar información de un usuario en el panel de administración.
     * Json(optional):
@@ -279,10 +606,42 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been updated",
+        "data": {
+            "user"
+        }
+    }
+    ```
+
 * **DELETE** `api/admin/users/{user}`
   * Eliminar un usuario en el panel de administración.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been deleted",
+        "data": {
+            "user"
+        }
+    }
+    ```
+
 * **PATCH** `api/admin/users/{user}/restore`
   * Restaurar un usuario previamente eliminado.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been restored",
+        "data": {
+            "user"
+        }
+    }
+    ```
 
 ### Rol de Cliente (`customer`)
 
@@ -291,17 +650,31 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 * **GET|HEAD** `api/customer`
   * Acceso al dashboard del cliente.
 
-#### Categorías Cliente
-
-* **GET|HEAD** `api/customer/categories`
-  * Listado de categorías para clientes.
-* **GET|HEAD** `api/customer/categories/{category}`
-  * Ver detalles específicos de una categoría desde la perspectiva del cliente.
-
 #### Órdenes Cliente
 
 * **GET|HEAD** `api/customer/orders`
   * Listado de órdenes para clientes.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": 1,
+                "user_id": 6,
+                "status": "cancelled",
+                "comments": null,
+                "created_at": "2024-02-10T16:41:33.000000Z",
+                "updated_at": "2024-02-10T16:41:33.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
 * **POST** `api/customer/orders`
   * Crear una nueva orden desde la perspectiva del cliente.
     * Json:
@@ -314,22 +687,71 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been stored",
+        "data": {
+            "order"
+        }
+    }
+    ```
+
 * **GET|HEAD** `api/customer/orders/{order}`
   * Ver detalles específicos de una orden desde la perspectiva del cliente.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "id": 1,
+            "user_id": 6,
+            "status": "cancelled",
+            "comments": null,
+            "created_at": "2024-02-10T16:41:33.000000Z",
+            "updated_at": "2024-02-10T16:41:33.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
+
 * **DELETE** `api/customer/orders/{order}`
   * Eliminar una orden desde la perspectiva del cliente.
+    * Response:
 
-#### Productos Cliente
-
-* **GET|HEAD** `api/customer/products`
-  * Listado de productos para clientes.
-* **GET|HEAD** `api/customer/products/{product}`
-  * Ver detalles específicos de un producto desde la perspectiva del cliente.
+    ```sh
+    {
+        "Result": "Data has been deleted",
+        "data": {
+            "order"
+        }
+    }
+    ```
 
 #### Usuario Actual
 
 * **GET|HEAD** `api/user`
   * Obtener detalles del usuario actual.
+    * Response:
+
+    ```sh
+    {
+        "id": 1,
+        "old_id": null,
+        "name": "Holden Becker",
+        "email": "vrath@example.net",
+        "phone": "1-225-449-9520",
+        "email_verified_at": "2024-02-10T16:41:29.000000Z",
+        "two_factor_secret": null,
+        "two_factor_recovery_codes": null,
+        "current_team_id": null,
+        "profile_photo_path": null,
+        "created_at": "2024-02-10T16:41:33.000000Z",
+        "updated_at": "2024-02-10T16:41:33.000000Z",
+        "deleted_at": null
+    }
+    ```
 
 ### Usuarios sin rol
 
@@ -346,11 +768,49 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "user_id": 1,
+            "name": "Holden Becker",
+            "email": "vrath@example.net",
+            "token": "25|aIL8MYq5Irg4sL9ggcktPfoCqZlRFAMLYDpGRfPz0f0786a6",
+            "roles": [
+                {
+                    "id": 2,
+                    "name": "customer",
+                    "guard_name": "web",
+                    "created_at": "2024-02-10T16:41:29.000000Z",
+                    "updated_at": "2024-02-10T16:41:29.000000Z",
+                    "pivot": {
+                        "model_type": "App\\Models\\User",
+                        "model_id": 1,
+                        "role_id": 2
+                    }
+                }
+            ],
+            "permissions": []
+        }
+    }
+    ```
+
 #### log out
 
 * **POST** `api/logout`
   * Cerrar sesion de customer o admin y revocar token
     * Requiere token
+    * Response:
+
+    ```sh
+    {
+        "Result": "User logged out",
+        "data": {
+            "user"
+        }
+    }
+    ```
 
 #### sign up
 
@@ -367,19 +827,99 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
     }
     ```
 
-#### Categorías
+    * Response:
 
-* **GET|HEAD** `api/categories`
+    ```sh
+    {
+        "Result": "Data has been stored",
+        "data": {
+            "user"
   * Listado de categorías.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": int,
+                "category_id": null,
+                "name": "Noah Renner I",
+                "created_at": "2024-02-10T16:41:33.000000Z",
+                "updated_at": "2024-02-10T16:41:33.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+                "self": "link-value"
+            }
+    }
+    ```
+
 * **GET|HEAD** `api/categories/{category}`
   * Ver detalles específicos de una categoría.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "id": 1,
+            "category_id": null,
+            "name": "Noah Renner I",
+            "created_at": "2024-02-10T16:41:33.000000Z",
+            "updated_at": "2024-02-10T16:41:33.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
 
 #### Productos
 
 * **GET|HEAD** `api/products`
   * Listado de productos.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": 1,
+                "name": "Otilia O'Connell",
+                "category_id": 6,
+                "image": "https://via.placeholder.com/400x400.png/007777?text=et",
+                "description": "Earum saepe repellat autem et expedita odio maxime. Ea dolore labore ea. Consequuntur et saepe quia qui sit quia. Voluptatem veniam fugiat velit vel nobis a ipsum.",
+                "stock": 1034,
+                "price": 29696.84,
+                "created_at": "2024-02-10T16:41:33.000000Z",
+                "updated_at": "2024-02-10T16:41:33.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
 * **GET|HEAD** `api/products/{product}`
   * Ver detalles específicos de un producto.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "id": 1,
+            "name": "Otilia O'Connell",
+            "category_id": 6,
+            "image": "https://via.placeholder.com/400x400.png/007777?text=et",
+            "description": "Earum saepe repellat autem et expedita odio maxime. Ea dolore labore ea. Consequuntur et saepe quia qui sit quia. Voluptatem veniam fugiat velit vel nobis a ipsum.",
+            "stock": 1034,
+            "price": 29696.84,
+            "created_at": "2024-02-10T16:41:33.000000Z",
+            "updated_at": "2024-02-10T16:41:33.000000Z",
+            "deleted_at": null
+        }
+    }
+    ```
 
 ## Exceptions handler
 
@@ -411,7 +951,7 @@ Se construye un array $response que contiene el mensaje, los detalles de la exce
         "details":
         {
             "message": "Unauthenticated.",
-            "file": "C:\\Users\\Lochofo\\Desktop\\PAGINAS\\Dakuk\\DakukWeb_BackEnd\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php",
+            "file": "C:\\x\\x\\x\\x\\x\\DakukWeb_backend\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php",
             "line": 95
         },
         "status": 500

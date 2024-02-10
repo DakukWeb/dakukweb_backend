@@ -28,7 +28,7 @@ class UserController extends Controller
             ]);
             // Assigns the 'customer' role to the newly created user
         $user->assignRole('customer');
-        return ["Result" => "Data has been stored"];
+        return ["Result" => "Data has been stored", "data" => $user];
     }
     // Retrieves and returns a specific user by its ID
     public function show($id)
@@ -40,27 +40,19 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        return ["Result" => "Data has been updated"];
+        return ["Result" => "Data has been updated", "data" => $user];
     }
     // Deletes a user by its ID and handles self-deletion and soft deletion if applicable
     public function destroy($id)
     {
-        $user = User::find($id);
-        if ($user->id == auth()->id()) {
-            $alert = 'Error';
-            $message = 'You cannot delete yourself';
-        } else if (!$user->trashed()) {
-            $alert = 'Result';
-            User::find($id)->delete();
-            $message = 'Data has been deleted';
-        }
-        return ["$alert" => "$message"];
+        $user = User::findOrFail($id)->delete();
+        return ["Result" => "Data has been deleted", "data" => $user];
     }
     // Restores a soft-deleted user by its ID
     public function restore($id)
     {
         $user = User::withTrashed()->find($id);
         $user->restore();
-        return ["Result"=>"Data has been restored"];
+        return ["Result"=>"Data has been restored", "data" => $user];
     }
 }
