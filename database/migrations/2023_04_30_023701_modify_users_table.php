@@ -17,11 +17,9 @@ return new class extends Migration
             if (!Schema::hasColumn('users', 'old_id')) {
                 $table->unsignedInteger('old_id')->after('id')->nullable();
             }
-
             if (!Schema::hasColumn('users', 'phone')) {
                 $table->string('phone', 50)->after('password')->nullable();
             }
-
             $table->softDeletes();
         });
     }

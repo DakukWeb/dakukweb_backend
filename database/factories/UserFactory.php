@@ -22,12 +22,11 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make('1234'), // password
+            'password' => Hash::make('password'), // password
             'phone' => fake()->phoneNumber(),
             'remember_token' => Str::random(10),
         ];
     }
-
     /**
      * Indicate that the model's email address should be unverified.
      *
