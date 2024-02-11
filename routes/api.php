@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\AuthController;
 
@@ -44,6 +45,8 @@ Route::get('/test', function () {
         });
         //Route::view('/', 'customer.dashboard')->name('dashboard');
         Route::apiResource('orders', OrderController::class)->except(['edit', 'update']);
+        //
+        Route::apiResource('orderdetails', OrderDetailsController::class)->except(['edit', 'update']);
     });
 // Grupo de rutas para los usuarios con el rol "admin"
     Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->group(function () {

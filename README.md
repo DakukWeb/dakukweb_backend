@@ -208,7 +208,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
     ```sh
     {
-        "data": {
+        "data": [
+        {
             "id": 1,
             "category_id": null,
             "name": "Noah Renner I",
@@ -216,6 +217,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
             "updated_at": "2024-02-10T16:41:33.000000Z",
             "deleted_at": null
         }
+    ],
+    "links": {
+        "self": "link-value"
+    }
     }
     ```
 
@@ -321,7 +326,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
     ```sh
     {
-        "data": {
+        "data": [
+        {
             "id": 1,
             "user_id": 6,
             "status": "cancelled",
@@ -330,6 +336,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
             "updated_at": "2024-02-10T16:41:33.000000Z",
             "deleted_at": null
         }
+    ],
+    "links": {
+        "self": "link-value"
+    }
     }
     ```
 
@@ -439,7 +449,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
     ```sh
     {
-        "data": {
+        "data": [
+        {
             "id": 1,
             "name": "Otilia O'Connell",
             "category_id": 6,
@@ -451,6 +462,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
             "updated_at": "2024-02-10T16:41:33.000000Z",
             "deleted_at": null
         }
+    ],
+    "links": {
+        "self": "link-value"
+    }
     }
     ```
 
@@ -704,7 +719,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
     ```sh
     {
-        "data": {
+        "data": [
+        {
             "id": 1,
             "user_id": 6,
             "status": "cancelled",
@@ -713,6 +729,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
             "updated_at": "2024-02-10T16:41:33.000000Z",
             "deleted_at": null
         }
+    ],
+    "links": {
+        "self": "link-value"
+    }
     }
     ```
 
@@ -725,6 +745,93 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
         "Result": "Data has been deleted",
         "data": {
             "order"
+        }
+    }
+    ```
+
+#### Detalles de Ordenes Cliente
+
+* **GET|HEAD** `api/customer/orderdetails`
+  * Listado de los detalles de ordenes para clientes.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": 1,
+                "order_id": 1,
+                "product_id": 41,
+                "quantity": 2,
+                "amount": 56402.3,
+                "created_at": "2024-02-10T16:41:34.000000Z",
+                "updated_at": "2024-02-10T16:41:34.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
+* **POST** `api/customer/orderdetails`
+  * Crear un nuevo detalle de orden desde la perspectiva del cliente.
+    * Json:
+
+    ```sh
+    {
+        "order_id": "int",
+        "product_id": "int",
+        "quantity": "int",
+        "amount": "int"
+    }
+    ```
+
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been stored",
+        "data": {
+            "orderdetail"
+        }
+    }
+    ```
+
+* **GET|HEAD** `api/customer/orderdetails/{orderdetail}`
+  * Ver detalles específicos de un detalle de orden desde la perspectiva del cliente.
+    * Response:
+
+    ```sh
+    {
+        "data": {
+            "1": {
+                "id": 1,
+                "order_id": 1,
+                "product_id": 41,
+                "quantity": 2,
+                "amount": 56402.3,
+                "created_at": "2024-02-10T16:41:34.000000Z",
+                "updated_at": "2024-02-10T16:41:34.000000Z",
+                "deleted_at": null
+            }
+        },
+        "links": {
+            "self": "link-value"
+        }
+    }
+    ```
+
+* **DELETE** `api/customer/orderdetails/{orderdetail}`
+  * Eliminar una orden desde la perspectiva del cliente.
+    * Response:
+
+    ```sh
+    {
+        "Result": "Data has been deleted",
+        "data": {
+            "orderdetail"
         }
     }
     ```
@@ -834,6 +941,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
         "Result": "Data has been stored",
         "data": {
             "user"
+        }
+    }
+    ```
+
   * Listado de categorías.
     * Response:
 
@@ -861,7 +972,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
     ```sh
     {
-        "data": {
+        "data": [
+        {
             "id": 1,
             "category_id": null,
             "name": "Noah Renner I",
@@ -869,6 +981,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
             "updated_at": "2024-02-10T16:41:33.000000Z",
             "deleted_at": null
         }
+    ],
+    "links": {
+        "self": "link-value"
+    }
     }
     ```
 
@@ -906,7 +1022,8 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
 
     ```sh
     {
-        "data": {
+        "data": [
+        {
             "id": 1,
             "name": "Otilia O'Connell",
             "category_id": 6,
@@ -918,6 +1035,10 @@ Aca tienen el listado de todas las rutas disponibles. tener en cuenta que las ru
             "updated_at": "2024-02-10T16:41:33.000000Z",
             "deleted_at": null
         }
+    ],
+    "links": {
+        "self": "link-value"
+    }
     }
     ```
 

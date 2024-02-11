@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UserCollection;
+use App\Http\Requests\Api\Store\StoreUserRequest;
+use App\Http\Requests\Api\Update\UpdateUserRequest;
+use App\Http\Resources\Api\UserResource;
+use App\Http\Resources\Api\UserCollection;
 use App\Models\User;
 
 class UserController extends Controller

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Resources\CategoryCollection;
+use App\Http\Requests\Api\Store\StoreCategoryRequest;
+use App\Http\Requests\Api\Update\UpdateCategoryRequest;
+use App\Http\Resources\Api\CategoryCollection;
 
 class CategoryController extends Controller
 {
@@ -16,9 +16,9 @@ class CategoryController extends Controller
         return new CategoryCollection(Category::all()->keyBy->id);
     }
   // Retrieves and returns a specific category by its ID
-    public function show(Category $category)
+    public function show($id)
     {
-            return response()->json(['data' => $category], 200);
+        return new CategoryCollection([Category::findOrFail($id)]);
     }
   // Stores a new category using data from the request
     public function store(StoreCategoryRequest $request)

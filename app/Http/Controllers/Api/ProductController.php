@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductCollection;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\Api\ProductCollection;
+use App\Http\Requests\Api\Store\StoreProductRequest;
+use App\Http\Requests\Api\Update\UpdateProductRequest;
 class ProductController extends Controller
 {
     // Retrieves all products and returns them as a collection
@@ -17,8 +17,7 @@ class ProductController extends Controller
     // Retrieves and returns a specific product by its ID
     public function show($id)
     {
-            $product = Product::findOrFail($id);
-            return response()->json(['data' => $product], 200);
+        return new ProductCollection([Product::findOrFail($id)]);
     }
     // Updates an existing product with data from the request
     public function update(UpdateProductRequest $request, $id)

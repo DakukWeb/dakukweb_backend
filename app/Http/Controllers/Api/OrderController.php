@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Order;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
-use App\Http\Resources\OrderCollection;
+use App\Http\Requests\Api\Store\StoreOrderRequest;
+use App\Http\Requests\Api\Update\UpdateOrderRequest;
+use App\Http\Resources\Api\OrderCollection;
 
 // Controller for managing orders
 class OrderController extends Controller
@@ -19,8 +19,7 @@ class OrderController extends Controller
     // Retrieves and returns a specific product by its ID
     public function show($id)
     {
-            $order = Order::findOrFail($id);
-            return response()->json(['data' => $order], 200);
+        return new OrderCollection([Order::findOrFail($id)]);
     }
     // Stores a new order using data from the request
     public function store(StoreOrderRequest $request)

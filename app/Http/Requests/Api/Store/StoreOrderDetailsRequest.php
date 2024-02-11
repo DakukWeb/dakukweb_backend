@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 
-
-class LoginRequest extends FormRequest
+class StoreOrderDetailsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,13 +19,13 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'string|max:255',
-            'email' => 'required|email|',
-            'password' => 'required|string|min:8',
-            'phone' => 'string|max:15'
+            "order_id" => 'required',
+            "product_id" => 'required',
+            "quantity" => 'required',
+            "amount" => 'required',
         ];
     }
 }

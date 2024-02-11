@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Request;
 
-class OrderCollection extends ResourceCollection
+class OrderDetailsCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
      * @return array<int|string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request)
     {
         return [
             'data' => $this->collection,
             'links' => [
-                'self' => 'link-value',
+                'self' => Request::fullUrl(),
             ],
         ];
     }
