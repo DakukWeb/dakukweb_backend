@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/test', function () {
     return response()->json(['hola' => 'mundo']);
 })->name('test');
+//
+//
+//
 // Grupo de rutas para no-usuarios
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
         //
@@ -38,6 +41,9 @@ Route::get('/test', function () {
     Route::post('signup',[UserController::class,'store']);
 // Log out de cualquier usuario: requiere del token sanctum
     Route::post('logout', [AuthController::class,'logout'])->middleware('auth:sanctum');
+//
+//
+//
 // Grupo de rutas para los usuarios con el rol "customer"
     Route::middleware(['auth:sanctum', 'customer'])->prefix('customer')->name('customer.')->group(function () {
         Route::get('dashboard', function () {
@@ -48,6 +54,9 @@ Route::get('/test', function () {
         //
         Route::apiResource('orderdetails', OrderDetailsController::class)->except(['edit', 'update']);
     });
+//
+//
+//
 // Grupo de rutas para los usuarios con el rol "admin"
     Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', function () {

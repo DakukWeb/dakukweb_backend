@@ -42,7 +42,8 @@ class OrderDetailsController extends Controller
     // Deletes an OrderDetails by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
-        $OrderDetails = OrderDetails::find($id)->delete();
+        $OrderDetails = OrderDetails::findOrFail($id);
+        OrderDetails::findOrFail($id)->delete();
         return ["Result"=>"Data has been deleted", "data" => $OrderDetails];
     }
     // Restores a soft-deleted OrderDetails by its ID

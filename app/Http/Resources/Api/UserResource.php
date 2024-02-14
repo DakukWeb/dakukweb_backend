@@ -21,7 +21,6 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'token' => $this->createToken("Token")->plainTextToken,
             'roles' => $this->roles,
-            //'permissions' => $this->permissions
             'links' => [
                 'self' => Request::fullUrl(),
             ],

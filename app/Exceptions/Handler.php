@@ -36,11 +36,11 @@ class Handler extends ExceptionHandler
             // Checking if the request is for an API route
             if ($request->is('api/*')) {
                 // Handling API exceptions
-                return $this->handleApiException($request, $e);
+                return $this->handleApiException($e);
             }
         });
     }
-    private function handleApiException($request, Exception $exception)
+    private function handleApiException(Exception $exception)
     {
         // Prepare the exception
         $exception = $this->prepareException($exception);

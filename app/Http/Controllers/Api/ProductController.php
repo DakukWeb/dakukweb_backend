@@ -7,17 +7,38 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\ProductCollection;
 use App\Http\Requests\Api\Store\StoreProductRequest;
 use App\Http\Requests\Api\Update\UpdateProductRequest;
+use Illuminate\Support\Facades\Auth;
+
 class ProductController extends Controller
 {
     // Retrieves all products and returns them as a collection
     public function index()
     {
-        return new ProductCollection(Product::all()->keyBy->id);
+        //$products = Product::onlyTrashed()->get();
+
+        $products = Product::query();
+        if (Auth::check()) {
+            // If the user is an admin, include soft deleted products
+            $products = $products->withTrashed();
+        }
+        $products = $products->get();
+        return new ProductCollection($products);
+
+
+        /*if (Auth::check()) {
+            $user = User::find(Auth::id());
+            if ($user->hasRole('admin')) {
+                return new ProductCollection(
+                    //Product::where('name', 'like', "%Margarita Abbott%")->get()
+                    Product::whereNotNull('deleted_at')->get()
+                );
+            }
+        }*/
     }
     // Retrieves and returns a specific product by its ID
     public function show($id)
     {
-        return new ProductCollection([Product::findOrFail($id)]);
+            return new ProductCollection([Product::findOrFail($id)]);
     }
     // Updates an existing product with data from the request
     public function update(UpdateProductRequest $request, $id)

@@ -72,9 +72,7 @@ class User extends Authenticatable
      */
     public static function getByStatus($search, $status)
     {
-        $query = self::search($search, function ($query) {
-            $query->where('id', '!=', auth()->id());
-        });
+        $query = self::search($search);
         return ($status == 'deleted') ? $query->onlyTrashed() : $query;
     }
 }

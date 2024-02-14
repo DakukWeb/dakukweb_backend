@@ -9,13 +9,22 @@ use App\Http\Requests\Api\Update\UpdateUserRequest;
 use App\Http\Resources\Api\UserResource;
 use App\Http\Resources\Api\UserCollection;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     // Retrieves all users and returns them as a collection
     public function index()
     {
-        return new UserCollection(User::all()->keyBy->id);
+        $user = User::query();
+
+        if (Auth::check()) {
+            // If the user is an admin, include soft deleted products
+            $user = $user->withTrashed();
+        }
+
+        $user = $user->get();
+        return new UserCollection($user);
     }
     // Stores a new user using data from the request
     public function store(StoreUserRequest $request)
@@ -45,7 +54,8 @@ class UserController extends Controller
     // Deletes a user by its ID and handles self-deletion and soft deletion if applicable
     public function destroy($id)
     {
-        $user = User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+        User::findOrFail($id)->delete();
         return ["Result" => "Data has been deleted", "data" => $user];
     }
     // Restores a soft-deleted user by its ID

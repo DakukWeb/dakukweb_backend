@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Store\StoreOrderRequest;
 use App\Http\Requests\Api\Update\UpdateOrderRequest;
 use App\Http\Resources\Api\OrderCollection;
+use Illuminate\Support\Facades\Auth;
 
 // Controller for managing orders
 class OrderController extends Controller
@@ -14,7 +15,13 @@ class OrderController extends Controller
     // Retrieves all orders and returns them as a collection
     public function index()
     {
-        return new OrderCollection(Order::all()->keyBy->id);
+        $orders = Order::query();
+        if (Auth::check()) {
+            // If the user is an admin, include soft deleted orders
+            $orders = $orders->withTrashed();
+        }
+        $orders = $orders->get();
+        return new OrderCollection($orders);
     }
     // Retrieves and returns a specific product by its ID
     public function show($id)
@@ -41,7 +48,8 @@ class OrderController extends Controller
     // Deletes an order by its ID and handles soft deletion if applicable
     public function destroy($id)
     {
-        $order = Order::find($id)->delete();
+        $order = Order::findOrFail($id);
+        Order::findOrFail($id)->delete();
         return ["Result"=>"Data has been deleted", "data" => $order];
     }
     // Restores a soft-deleted order by its ID

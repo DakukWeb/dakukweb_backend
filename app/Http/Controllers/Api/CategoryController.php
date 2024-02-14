@@ -7,13 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Store\StoreCategoryRequest;
 use App\Http\Requests\Api\Update\UpdateCategoryRequest;
 use App\Http\Resources\Api\CategoryCollection;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
   // Retrieves all categories and returns them as a collection
     public function index()
     {
-        return new CategoryCollection(Category::all()->keyBy->id);
+        $category = Category::query();
+
+        if (Auth::check()) {
+            // If the user is an admin, include soft deleted products
+            $category = $category->withTrashed();
+        }
+
+        $category = $category->get();
+        return new CategoryCollection($category);
     }
   // Retrieves and returns a specific category by its ID
     public function show($id)
