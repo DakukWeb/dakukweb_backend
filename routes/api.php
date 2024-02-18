@@ -34,6 +34,8 @@ Route::get('/test', function () {
         //
     Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
         //
+    Route::post('products/search', [ProductController::class, 'search'])->name('products.search');
+        //
     Route::apiResource('categories', CategoryController::class)->except(['edit', 'update', 'destroy', 'store']);
         //
     Route::post('login',[AuthController::class,'login']);
@@ -67,6 +69,7 @@ Route::get('/test', function () {
         Route::patch('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
         //
         Route::apiResource('products', ProductController::class);
+        Route::post('products/search', [ProductController::class, 'search'])->name('products.search');
         Route::patch('products/{product}/restore', [ProductController::class, 'restore'])->name('products.restore');
         //
         Route::apiResource('categories', CategoryController::class);

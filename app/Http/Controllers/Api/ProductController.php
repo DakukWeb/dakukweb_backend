@@ -8,14 +8,14 @@ use App\Http\Resources\Api\ProductCollection;
 use App\Http\Requests\Api\Store\StoreProductRequest;
 use App\Http\Requests\Api\Update\UpdateProductRequest;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ProductController extends Controller
 {
     // Retrieves all products and returns them as a collection
     public function index()
     {
-        //$products = Product::onlyTrashed()->get();
-
         $products = Product::query();
         if (Auth::check()) {
             // If the user is an admin, include soft deleted products
@@ -23,22 +23,39 @@ class ProductController extends Controller
         }
         $products = $products->get();
         return new ProductCollection($products);
-
-
-        /*if (Auth::check()) {
-            $user = User::find(Auth::id());
-            if ($user->hasRole('admin')) {
-                return new ProductCollection(
-                    //Product::where('name', 'like', "%Margarita Abbott%")->get()
-                    Product::whereNotNull('deleted_at')->get()
-                );
-            }
-        }*/
     }
     // Retrieves and returns a specific product by its ID
     public function show($id)
     {
             return new ProductCollection([Product::findOrFail($id)]);
+    }
+    // Retrieves and returns similar products by their name
+    public function search(UpdateProductRequest $request)
+    {
+        $products = Product::query();
+        //  If the user is an admin, include soft deleted products
+        if (Auth::check()) {
+            $products->withTrashed();
+        }
+        // Filter by name (optional)
+        if ($request->has('name')){
+            $products->where('name', 'like', "%$request->name%");
+        }
+        // Filter by stock (optional)
+        if ($request->has('stock')) {
+            $products->where('stock', '<=', $request->stock);
+        }
+        // Filter by price (optional)
+        if ($request->has('price')) {
+            $products->where('price','<=', $request->price);
+        }
+        $search = $products->get();
+        if ($search->isEmpty()) {
+            throw new NotFoundHttpException('No product with similar name');
+        }
+        return new ProductCollection(
+            $search
+        );
     }
     // Updates an existing product with data from the request
     public function update(UpdateProductRequest $request, $id)
@@ -62,20 +79,25 @@ class ProductController extends Controller
         return ["Result"=>"Data has been restored", "data" => $product];
     }
     // Stores a new product using data from the request
-    function store(StoreProductRequest $request) // Assuming category information is missing
+    function store(StoreProductRequest $request)
     {
-        /*
-        $imageName = time() . '-' . $request->name . '.' .
+        if(!$request->hasFile('image')) {
+            throw new HttpException(400, 'upload_file_not_found');
+        }
+        $file = $request->file('image');
+        if(!$file->isValid()) {
+            throw new HttpException(400, 'upload_file_not_found');
+        }
+        $path = public_path() . '/uploads/images/store/';
+        $imageName = $request->name . '.' .
         $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
-        */
-        // Validation commented out, assuming it's done in a separate class
+        $file->move($path, $file->getClientOriginalName());
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
-            'image' => $request->image,
+            'image' => $imageName,
         ]);
         return ["Result" => "Data has been stored", "data" => $product];
     }

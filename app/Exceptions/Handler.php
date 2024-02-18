@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -42,6 +44,18 @@ class Handler extends ExceptionHandler
     }
     private function handleApiException(Exception $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            // Prepare the exception
+            $exception = $this->prepareException($exception);
+            // Handle the API response for the exception
+            return $this->handleApiResponse($exception);
+        }
+        if ($exception instanceof HttpException) {
+            // Prepare the exception
+            $exception = $this->prepareException($exception);
+            // Handle the API response for the exception
+            return $this->handleApiResponse($exception);
+        }
         // Prepare the exception
         $exception = $this->prepareException($exception);
         // Handle the API response for the exception
@@ -58,6 +72,9 @@ class Handler extends ExceptionHandler
         $response = [];
         // Generate response based on the status code
         switch ($statusCode) {
+            case 400:
+                $response['message'] = 'Invalid petition';
+                break;
             case 401:
                 $response['message'] = 'Unauthorized';
                 break;
