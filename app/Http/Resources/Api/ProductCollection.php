@@ -16,8 +16,8 @@ class ProductCollection extends ResourceCollection
     public function toArray($request)
     {
         $products = $this->collection;
-        if (auth()->check()) {
-            $products = Product::withTrashed()->get();
+        if (auth()->user()) {
+            $products = Product::withTrashed()->whereIn('id', $products->pluck('id'))->get();
         }
         return [
             'data' => [

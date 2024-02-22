@@ -16,7 +16,7 @@ class UserCollection extends ResourceCollection
     public function toArray($request)
     {
         $users = $this->collection;
-        $users = User::withTrashed()->get();
+        $users = User::withTrashed()->whereIn('id', $users->pluck('id'))->get();
         return [
             'data' => [
                 $users->map(function($user){

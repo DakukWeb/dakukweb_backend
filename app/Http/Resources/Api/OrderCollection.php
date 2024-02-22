@@ -16,7 +16,7 @@ class OrderCollection extends ResourceCollection
     public function toArray($request)
     {
         $orders = $this->collection;
-        $orders = Order::withTrashed()->get();
+        $orders = Order::withTrashed()->whereIn('id', $orders->pluck('id'))->get();
         return [
             'data' => [
                 $orders->map(function($order){

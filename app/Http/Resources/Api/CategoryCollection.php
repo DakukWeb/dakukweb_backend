@@ -17,7 +17,7 @@ class CategoryCollection extends ResourceCollection
     {
         $categories = $this->collection;
         if (auth()->check()) {
-            $categories = Category::withTrashed()->get();
+            $categories = Category::withTrashed()->whereIn('id', $categories->pluck('id'))->get();
         }
         return [
             'data' => [
