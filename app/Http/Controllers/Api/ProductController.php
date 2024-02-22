@@ -16,13 +16,11 @@ class ProductController extends Controller
     // Retrieves all products and returns them as a collection
     public function index()
     {
-        $products = Product::query();
-        if (Auth::check()) {
-            // If the user is an admin, include soft deleted products
-            $products = $products->withTrashed();
-        }
-        $products = $products->get();
-        return new ProductCollection($products);
+        /*
+            /esto servira si queres separar datos por paginas
+        return new ProductCollection($products->paginate(10));
+        */
+        return new ProductCollection(Product::all());
     }
     // Retrieves and returns a specific product by its ID
     public function show($id)

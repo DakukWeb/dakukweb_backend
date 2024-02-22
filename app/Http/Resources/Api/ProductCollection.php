@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -14,11 +15,14 @@ class ProductCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $products = $this->collection;
+        if (auth()->check()) {
+            $products = Product::withTrashed()->get();
+        }
         return [
             'data' => [
-                $this->collection->count(),
-                $this->collection,
-                /*$this->collection->map(function ($product) {
+                $products->count(),
+                $products->map(function ($product) {
                     return [
                         'id' => $product->id,
                         'name' => $product->name,
@@ -26,9 +30,11 @@ class ProductCollection extends ResourceCollection
                         'price' => $product->price,
                         'stock' => $product->stock,
                         'image' => $product->image,
-                        'deleted_at' => $product->trashed(), // Indicate if the product is soft deleted
+                        "created_at" => $this->when(auth()->user(), $product->created_at),
+                        "updated_at" => $this->when(auth()->user(), $product->updated_at),
+                        "deleted_at" => $this->when(auth()->user(), $product->deleted_at)
                     ];
-                }),*/
+                }),
             ],
             'links' => [
                 'self' => Request::fullUrl(),

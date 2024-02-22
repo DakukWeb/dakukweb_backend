@@ -9,22 +9,13 @@ use App\Http\Requests\Api\Update\UpdateUserRequest;
 use App\Http\Resources\Api\UserResource;
 use App\Http\Resources\Api\UserCollection;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     // Retrieves all users and returns them as a collection
     public function index()
     {
-        $user = User::query();
-
-        if (Auth::check()) {
-            // If the user is an admin, include soft deleted products
-            $user = $user->withTrashed();
-        }
-
-        $user = $user->get();
-        return new UserCollection($user);
+        return new UserCollection(User::all());
     }
     // Stores a new user using data from the request
     public function store(StoreUserRequest $request)
